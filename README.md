@@ -5,7 +5,11 @@ See [WemixPlay Wallet Developer Docs for onboarding](https://wemadetree.gitbook.
 
 ### Install
 
-`npm i @wemixplay/injected-wallet`
+```
+npm i @wemixplay/injected-wallet
+or
+yarn add @wemmixplay/injected-wallet
+```
 
 ## Options
 

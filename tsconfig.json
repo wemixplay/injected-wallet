@@ -17,7 +17,7 @@
     "strict": false,
     "importHelpers": true,
     "paths": {
-      // "*": ["./src/*", "./node_modules/*"],
+      "*": ["./src/*", "./node_modules/*"],
       "~helper/*": ["./src/helper/*"],
       "~types/*": ["./src/types/*"],
       "~service/*": ["./src/service/*"],

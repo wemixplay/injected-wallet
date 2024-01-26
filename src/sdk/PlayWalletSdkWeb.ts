@@ -105,8 +105,11 @@ class PlayWalletSdkWeb {
           async (success: Record<string, any>) => {
             /** Login Query(useSelectUserInfo작동을 위한 리로드) */
             resolve(this._playWalletApiService.fetchUserInfo());
+            window.WEMIX_SDK?.getQR()?.btnClose?.click();
           },
           (fail: any) => {
+            // window?.WEMIX_SDK?.closeQR();
+            // window.WEMIX_SDK?.getQR()?.btnClose?.click();
             throw new ProviderRpcError({
               code: ProviderRpcErrorCode.ACCOUNT_ACCESS_REJECTED,
               message: 'Play Wallet rejected the request auth.'
@@ -150,8 +153,11 @@ class PlayWalletSdkWeb {
         req,
         (success: Record<string, unknown>[]) => {
           resolve(hashes);
+          window.WEMIX_SDK.getQR()?.btnClose?.click();
         },
         (_fails: [], error: any) => {
+          // window?.WEMIX_SDK?.closeQR();
+          // window.WEMIX_SDK.getQR()?.btnClose?.click();
           throw new ProviderRpcError({
             code: ProviderRpcErrorCode.ACCOUNT_ACCESS_REJECTED,
             message: 'Play Wallet rejected the request sign transaction.'
@@ -171,6 +177,8 @@ class PlayWalletSdkWeb {
           resolve(success);
         },
         (_fails: [], error: any) => {
+          // window?.WEMIX_SDK?.closeQR();
+          // window?.WEMIX_SDK?.getQR()?.btnClose?.click();
           throw new ProviderRpcError({
             code: ProviderRpcErrorCode.ACCOUNT_ACCESS_REJECTED,
             message

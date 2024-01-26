@@ -21,7 +21,7 @@
   "homepage": "https://wemixplay.com",
   "bugs": "https://github.com/wemixplay/injected-wallet/issues",
   "module": "dist/index.js",
-  "browser": "dist/index.js",
+  "browser": "dist/index.js", 
   "main": "dist/index.js",
   "type": "module",
   "typings": "dist/index.d.ts",
