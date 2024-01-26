@@ -1,0 +1,12 @@
+{
+  "singleQuote": true,
+  "trailingComma": "none",
+  "tabWidth": 2,
+  "semi": true,
+  "printWidth": 100,
+  "eslintIntegration": true,
+  "endOfLine": "auto",
+  "parser": "typescript",
+  "useTabs": false,
+  "arrowParens": "always"
+}

@@ -1,0 +1,29 @@
+{
+  "include": [
+    "src/**/*", 
+    "assets/playWemixIcon.ts", 
+    "**/*.ts",
+    "**/*.js"
+  ],
+  "types": ["node"],
+  "compilerOptions": {
+    "declaration": true,
+    "outDir": "dist",
+    "target": "es5",
+    "rootDir": "src",
+    "skipLibCheck": true,
+    "lib": ["dom", "es6", "es2017"],
+    "moduleResolution": "node",
+    "strict": false,
+    "importHelpers": true,
+    "paths": {
+      // "*": ["./src/*", "./node_modules/*"],
+      "~helper/*": ["./src/helper/*"],
+      "~types/*": ["./src/types/*"],
+      "~service/*": ["./src/service/*"],
+      "~sdk/*": ["./src/sdk/*"],
+      "~adapter/*": ["./src/adapter/*"]
+    },
+    "typeRoots": ["node_modules/@types"]
+  }
+}
