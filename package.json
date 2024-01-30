@@ -29,7 +29,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "clean": "rm -rf ./dist",
+    "copy-files": "cp ./src/sdk/wemix.js ./dist/sdk/wemix.js",
+    "build": "yarn clean && tsc && yarn copy-files",
     "dev": "tsc -w",
     "type-check": "tsc --noEmit"
   },

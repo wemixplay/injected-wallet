@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.PlayWalletPlugin = void 0;
-var tslib_1 = require("tslib");
-var PlayWalletApiService_1 = require("../../service/PlayWalletApiService");
+import { __awaiter, __generator } from "tslib";
+import WalletApiService from '../../service/PlayWalletApiService';
 var REQUEST_ACTION_TYPES_API = Object.freeze({
     PLAY_WALLET_PREPARED: 'playWallet_prepared',
     PLAY_WALLET_ACCESS_TOKEN: 'playWallet_accesstoken',
@@ -15,12 +12,12 @@ var REQUEST_ACTION_TYPES_API = Object.freeze({
 var PlayWalletPlugin = /** @class */ (function () {
     function PlayWalletPlugin(sdkInstance) {
         this._sdkInstance = sdkInstance;
-        this._walletApiService = new PlayWalletApiService_1.default();
+        this._walletApiService = new WalletApiService();
     }
     PlayWalletPlugin.prototype.request = function (_a) {
         var method = _a.method, params = _a.params;
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
-            return tslib_1.__generator(this, function (_b) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_b) {
                 switch (method) {
                     case REQUEST_ACTION_TYPES_API.PLAY_WALLET_PREPARED: {
                         return [2 /*return*/, this._walletApiService.a2aServerlessPrepared(params)];
@@ -53,4 +50,4 @@ var PlayWalletPlugin = /** @class */ (function () {
     };
     return PlayWalletPlugin;
 }());
-exports.PlayWalletPlugin = PlayWalletPlugin;
+export { PlayWalletPlugin };

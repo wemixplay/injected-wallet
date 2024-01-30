@@ -10,6 +10,7 @@ import {
 import PlayWalletProvider from '../provider/PlayWalletProvider';
 import PlayWalletApiService from '../service/PlayWalletApiService';
 import { get, wemixSdkStore } from '../store';
+import wemixSdk from './index';
 
 class PlayWalletSdkWeb {
   private _chainRpcUrl: string;
@@ -80,7 +81,7 @@ class PlayWalletSdkWeb {
   }
 
   public async initPlayWallet() {
-    await import('./wemix.js');
+    await import(wemixSdk);
 
     if (typeof window?.wemix !== 'function') {
       console.error('Not found wemix in Global.window');

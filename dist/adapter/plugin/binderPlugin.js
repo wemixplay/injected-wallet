@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.REQUEST_ACTION_TYPES_BINDER = exports.BinderPlugin = void 0;
-var tslib_1 = require("tslib");
-var axiosBinder_1 = require("../../helper/api/axiosBinder");
+import { __awaiter, __generator } from "tslib";
+import { requestBinderApi } from '../../helper/api/axiosBinder';
 var REQUEST_ACTION_TYPES_BINDER = Object.freeze({
     /** contract 이름으로 contract address 조회 */
     CONTRACT_ADDRESS: 'contract_contractAddress',
@@ -66,15 +63,14 @@ var REQUEST_ACTION_TYPES_BINDER = Object.freeze({
     /** 사용자는 Faucet이라는 개발 목적으로 토큰을 획득할 수 있습니다. */
     DEV_FAUCET: 'dev_faucet'
 });
-exports.REQUEST_ACTION_TYPES_BINDER = REQUEST_ACTION_TYPES_BINDER;
 var BinderPlugin = /** @class */ (function () {
     function BinderPlugin() {
     }
     BinderPlugin.prototype.request = function (params) {
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
-            return tslib_1.__generator(this, function (_a) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
                 if (Object.values(REQUEST_ACTION_TYPES_BINDER).includes(params === null || params === void 0 ? void 0 : params.method)) {
-                    return [2 /*return*/, (0, axiosBinder_1.requestBinderApi)(params)];
+                    return [2 /*return*/, requestBinderApi(params)];
                 }
                 return [2 /*return*/, null];
             });
@@ -82,4 +78,4 @@ var BinderPlugin = /** @class */ (function () {
     };
     return BinderPlugin;
 }());
-exports.BinderPlugin = BinderPlugin;
+export { BinderPlugin, REQUEST_ACTION_TYPES_BINDER };

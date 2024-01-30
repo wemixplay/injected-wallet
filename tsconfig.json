@@ -1,9 +1,9 @@
 {
   "include": [
     "src/**/*", 
-    "assets/playWemixIcon.ts", 
+    "assets/playWemixIcon.ts",
     "**/*.ts",
-    "**/*.js"
+    "**/*.js",
   ],
   "types": ["node"],
   "compilerOptions": {
@@ -13,6 +13,7 @@
     "rootDir": "src",
     "skipLibCheck": true,
     "lib": ["dom", "es6", "es2017"],
+    "module": "esnext",
     "moduleResolution": "node",
     "strict": false,
     "importHelpers": true,

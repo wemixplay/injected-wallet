@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.RequestPlugin = exports.REQUEST_ACTION_TYPES = void 0;
-var tslib_1 = require("tslib");
-var PlayWalletRequestService_1 = require("../../service/PlayWalletRequestService");
+import { __awaiter, __generator } from "tslib";
+import PlayWalletRequestService from '../../service/PlayWalletRequestService';
 var REQUEST_ACTION_TYPES = Object.freeze({
     REQUEST_ACCOUNTS: 'eth_requestAccounts',
     ACCOUNTS: 'eth_accounts',
@@ -23,18 +20,17 @@ var REQUEST_ACTION_TYPES = Object.freeze({
     GAS_PRICE: 'eth_gasPrice',
     CONTRACTS_ABI: 'get_contractsAbi'
 });
-exports.REQUEST_ACTION_TYPES = REQUEST_ACTION_TYPES;
 /**
  * Web3-Onboard EIP1193Provider.Request + https://docs.web3js.org/api/web3/namespace/types#EthExecutionAPI
  */
 var RequestPlugin = /** @class */ (function () {
     function RequestPlugin(sdkInstance) {
-        this._requestService = new PlayWalletRequestService_1.default(sdkInstance);
+        this._requestService = new PlayWalletRequestService(sdkInstance);
     }
     RequestPlugin.prototype.request = function (_a) {
         var method = _a.method, params = _a.params;
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
-            return tslib_1.__generator(this, function (_b) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_b) {
                 switch (method) {
                     /**
                      * 사용자가 식별할 이더리움 주소를 제공하도록 요청합니다.
@@ -123,4 +119,4 @@ var RequestPlugin = /** @class */ (function () {
     };
     return RequestPlugin;
 }());
-exports.RequestPlugin = RequestPlugin;
+export { REQUEST_ACTION_TYPES, RequestPlugin };

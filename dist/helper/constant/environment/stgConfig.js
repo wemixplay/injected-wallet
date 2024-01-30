@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.stgConfig = void 0;
 var stgConfig = Object.freeze({
     baseUrl: 'https://stg-api.wemixplay.com',
     a2aRelayUrl: 'https://stg-a2a.wemixnetwork.com',
@@ -20,4 +17,4 @@ var stgConfig = Object.freeze({
         tornado: '4003'
     }
 });
-exports.stgConfig = stgConfig;
+export { stgConfig };

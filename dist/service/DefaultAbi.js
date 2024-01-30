@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ERC20_ABI = void 0;
 var ERC20_ABI = [
     {
         type: 'constructor',
@@ -344,4 +341,4 @@ var ERC20_ABI = [
         stateMutability: 'payable'
     }
 ];
-exports.ERC20_ABI = ERC20_ABI;
+export { ERC20_ABI };

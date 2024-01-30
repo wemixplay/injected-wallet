@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.alphaConfig = void 0;
 var alphaConfig = Object.freeze({
     baseUrl: 'https://wemixplayalpha-agw.wemix.co',
     a2aRelayUrl: 'https://alpha-a2a.wemix.co',
@@ -20,4 +17,4 @@ var alphaConfig = Object.freeze({
         tornado: '5003'
     }
 });
-exports.alphaConfig = alphaConfig;
+export { alphaConfig };

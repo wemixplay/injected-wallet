@@ -1,20 +1,18 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var axiosA2a_1 = require("../helper/api/axiosA2a");
-var axiosPlayWallet_1 = require("../helper/api/axiosPlayWallet");
-var store_1 = require("../store");
+import { __assign, __awaiter, __generator } from "tslib";
+import { requestA2aApi } from '../helper/api/axiosA2a';
+import { requestPlayWalletApi } from '../helper/api/axiosPlayWallet';
+import { set } from '../store';
 var PlayWalletApiService = /** @class */ (function () {
     function PlayWalletApiService() {
     }
     PlayWalletApiService.prototype.a2aServerlessPrepared = function (qrPrepareParam) {
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, void 0, function () {
             var url;
-            return tslib_1.__generator(this, function (_a) {
+            return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         url = "/a2a/prepare";
-                        return [4 /*yield*/, axiosA2a_1.requestA2aApi.post(url, tslib_1.__assign({}, qrPrepareParam))];
+                        return [4 /*yield*/, requestA2aApi.post(url, __assign({}, qrPrepareParam))];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -22,18 +20,18 @@ var PlayWalletApiService = /** @class */ (function () {
     };
     PlayWalletApiService.prototype.a2aServerlessAccessToken = function (qrTokenParam) {
         var _a, _b;
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, void 0, function () {
             var url, response;
-            return tslib_1.__generator(this, function (_c) {
+            return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
                         url = "/a2a/accesstoken";
-                        return [4 /*yield*/, axiosA2a_1.requestA2aApi.post(url, tslib_1.__assign({}, qrTokenParam))];
+                        return [4 /*yield*/, requestA2aApi.post(url, __assign({}, qrTokenParam))];
                     case 1:
                         response = _c.sent();
                         if (response) {
-                            (0, store_1.set)('accessToken', (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.access_token);
-                            (0, store_1.set)('refreshToken', (_b = response === null || response === void 0 ? void 0 : response.data) === null || _b === void 0 ? void 0 : _b.refresh_token);
+                            set('accessToken', (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.access_token);
+                            set('refreshToken', (_b = response === null || response === void 0 ? void 0 : response.data) === null || _b === void 0 ? void 0 : _b.refresh_token);
                         }
                         return [2 /*return*/, response];
                 }
@@ -41,20 +39,20 @@ var PlayWalletApiService = /** @class */ (function () {
         });
     };
     PlayWalletApiService.prototype.unsignedTx = function (unsignedTxParam) {
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, void 0, function () {
             var url;
-            return tslib_1.__generator(this, function (_a) {
+            return __generator(this, function (_a) {
                 url = "/account/unsignedTx";
-                return [2 /*return*/, axiosPlayWallet_1.requestPlayWalletApi.post(url, unsignedTxParam)];
+                return [2 /*return*/, requestPlayWalletApi.post(url, unsignedTxParam)];
             });
         });
     };
     PlayWalletApiService.prototype.sendSignedTx = function (hash, signature, type) {
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, void 0, function () {
             var url;
-            return tslib_1.__generator(this, function (_a) {
+            return __generator(this, function (_a) {
                 url = "/account/signedTx";
-                return [2 /*return*/, axiosPlayWallet_1.requestPlayWalletApi.post(url, {
+                return [2 /*return*/, requestPlayWalletApi.post(url, {
                         hash: hash,
                         sign: signature,
                         type: type
@@ -63,13 +61,13 @@ var PlayWalletApiService = /** @class */ (function () {
         });
     };
     PlayWalletApiService.prototype.fetchUserInfo = function () {
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, void 0, function () {
             var url, response;
-            return tslib_1.__generator(this, function (_a) {
+            return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         url = "/login";
-                        return [4 /*yield*/, axiosPlayWallet_1.requestPlayWalletApi.post(url, { lang: 'en' })];
+                        return [4 /*yield*/, requestPlayWalletApi.post(url, { lang: 'en' })];
                     case 1:
                         response = _a.sent();
                         return [2 /*return*/, response === null || response === void 0 ? void 0 : response.data];
@@ -78,13 +76,13 @@ var PlayWalletApiService = /** @class */ (function () {
         });
     };
     PlayWalletApiService.prototype.verifyToken = function () {
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, void 0, function () {
             var url, response;
-            return tslib_1.__generator(this, function (_a) {
+            return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         url = "/verify";
-                        return [4 /*yield*/, axiosPlayWallet_1.requestPlayWalletApi.post(url)];
+                        return [4 /*yield*/, requestPlayWalletApi.post(url)];
                     case 1:
                         response = _a.sent();
                         return [2 /*return*/, response === null || response === void 0 ? void 0 : response.data];
@@ -94,13 +92,13 @@ var PlayWalletApiService = /** @class */ (function () {
     };
     PlayWalletApiService.prototype.fetchBalanceAll = function () {
         var _a;
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, void 0, function () {
             var url, response;
-            return tslib_1.__generator(this, function (_b) {
+            return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         url = "/balance/balanceAll";
-                        return [4 /*yield*/, axiosPlayWallet_1.requestPlayWalletApi.get(url)];
+                        return [4 /*yield*/, requestPlayWalletApi.get(url)];
                     case 1:
                         response = _b.sent();
                         return [2 /*return*/, (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.balances];
@@ -110,4 +108,4 @@ var PlayWalletApiService = /** @class */ (function () {
     };
     return PlayWalletApiService;
 }());
-exports.default = PlayWalletApiService;
+export default PlayWalletApiService;

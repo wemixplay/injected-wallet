@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TX_METHOD_CONST = exports.CONTRACT_NAME_CONST = void 0;
 var CONTRACT_NAME_CONST = Object.freeze({
     WemixSwapProxy: 'WemixSwapProxy',
     HomeExchanger: 'HomeExchanger',
@@ -35,7 +32,6 @@ var CONTRACT_NAME_CONST = Object.freeze({
     ReflectRouterV2: 'ReflectRouterV2',
     ReflectVaultV3: 'ReflectVaultV3'
 });
-exports.CONTRACT_NAME_CONST = CONTRACT_NAME_CONST;
 var TX_METHOD_CONST = Object.freeze({
     Approve: 'approve',
     BalanceOf: 'balanceOf',
@@ -80,4 +76,4 @@ var TX_METHOD_CONST = Object.freeze({
     EXCHANGE_ALL: 'exchangeAll',
     withdrawAll: 'withdrawAll'
 });
-exports.TX_METHOD_CONST = TX_METHOD_CONST;
+export { CONTRACT_NAME_CONST, TX_METHOD_CONST };

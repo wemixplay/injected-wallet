@@ -1,17 +1,13 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.requestPlayWalletApi = void 0;
-var axios_1 = require("axios");
-var store_1 = require("../../store");
-var requestPlayWalletApi = axios_1.default.create({
+import axios from 'axios';
+import { get } from '../../store';
+var requestPlayWalletApi = axios.create({
     headers: {
         'Access-Control-Allow-Origin': '*'
     }
 });
-exports.requestPlayWalletApi = requestPlayWalletApi;
 requestPlayWalletApi.interceptors.request.use(function (config) {
-    var envConfig = (0, store_1.get)('envConfig');
-    var accessToken = (0, store_1.get)('accessToken');
+    var envConfig = get('envConfig');
+    var accessToken = get('accessToken');
     if (envConfig && (envConfig === null || envConfig === void 0 ? void 0 : envConfig.walletUrl)) {
         config.baseURL = envConfig === null || envConfig === void 0 ? void 0 : envConfig.walletUrl;
     }
@@ -20,3 +16,4 @@ requestPlayWalletApi.interceptors.request.use(function (config) {
     }
     return config;
 });
+export { requestPlayWalletApi };

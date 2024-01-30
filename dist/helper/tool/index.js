@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.cloneObject = void 0;
 var cloneObject = function (obj) {
     var clone = {};
     for (var key in obj) {
@@ -13,4 +10,4 @@ var cloneObject = function (obj) {
     }
     return clone;
 };
-exports.cloneObject = cloneObject;
+export { cloneObject };

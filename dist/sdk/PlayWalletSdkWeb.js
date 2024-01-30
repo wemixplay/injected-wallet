@@ -1,15 +1,14 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var common_1 = require("@web3-onboard/common");
-var PlayWalletProvider_1 = require("../provider/PlayWalletProvider");
-var PlayWalletApiService_1 = require("../service/PlayWalletApiService");
-var store_1 = require("../store");
+import { __awaiter, __generator } from "tslib";
+import { ProviderRpcError, ProviderRpcErrorCode } from '@web3-onboard/common';
+import PlayWalletProvider from '../provider/PlayWalletProvider';
+import PlayWalletApiService from '../service/PlayWalletApiService';
+import { get, wemixSdkStore } from '../store';
+import wemixSdk from './index';
 var PlayWalletSdkWeb = /** @class */ (function () {
     function PlayWalletSdkWeb(_a) {
         var envConfig = _a.envConfig, clientId = _a.clientId, chainId = _a.chainId, chainRpcUrl = _a.chainRpcUrl, chains = _a.chains, prepared = _a.prepared, signJwt = _a.signJwt, unsignedTx = _a.unsignedTx, sendSignedTx = _a.sendSignedTx;
         var _this = this;
-        store_1.wemixSdkStore.setState({
+        wemixSdkStore.setState({
             envConfig: envConfig,
             baseUrl: envConfig.baseUrl,
             clientId: clientId,
@@ -17,8 +16,8 @@ var PlayWalletSdkWeb = /** @class */ (function () {
             chainRpcUrl: chainRpcUrl,
             chains: chains
         });
-        this._chainRpcUrl = (0, store_1.get)('chainRpcUrl');
-        this._playWalletApiService = new PlayWalletApiService_1.default();
+        this._chainRpcUrl = get('chainRpcUrl');
+        this._playWalletApiService = new PlayWalletApiService();
         this._prepared = prepared !== null && prepared !== void 0 ? prepared : this._playWalletApiService.a2aServerlessPrepared;
         this._signJwt = signJwt !== null && signJwt !== void 0 ? signJwt : this._playWalletApiService.a2aServerlessAccessToken;
         this._unsignedTx = unsignedTx !== null && unsignedTx !== void 0 ? unsignedTx : this._playWalletApiService.unsignedTx;
@@ -30,7 +29,7 @@ var PlayWalletSdkWeb = /** @class */ (function () {
             binder: envConfig.binderUrl,
             client_id: clientId
         };
-        store_1.wemixSdkStore.subscribe(function (state) {
+        wemixSdkStore.subscribe(function (state) {
             _this._chainRpcUrl = state.chainRpcUrl;
         });
     }
@@ -46,10 +45,10 @@ var PlayWalletSdkWeb = /** @class */ (function () {
         console.info('Done is initPlayWallet()');
     };
     PlayWalletSdkWeb.prototype.initPlayWallet = function () {
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
-            return tslib_1.__generator(this, function (_a) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, Promise.resolve().then(function () { return require('./wemix.js'); })];
+                    case 0: return [4 /*yield*/, import(wemixSdk)];
                     case 1:
                         _a.sent();
                         if (typeof (window === null || window === void 0 ? void 0 : window.wemix) !== 'function') {
@@ -66,9 +65,9 @@ var PlayWalletSdkWeb = /** @class */ (function () {
         });
     };
     PlayWalletSdkWeb.prototype.openAuthQrModal = function (isOpen) {
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, void 0, function () {
             var _this = this;
-            return tslib_1.__generator(this, function (_a) {
+            return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve) {
                         var _a, _b;
                         if (!window.WEMIX_SDK) {
@@ -77,15 +76,19 @@ var PlayWalletSdkWeb = /** @class */ (function () {
                         if (isOpen) {
                             (_a = window.WEMIX_SDK) === null || _a === void 0 ? void 0 : _a.openQR('auth', null, // req param
                             null, // chainName
-                            function (success) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
-                                return tslib_1.__generator(this, function (_a) {
+                            function (success) { return __awaiter(_this, void 0, void 0, function () {
+                                var _a, _b, _c;
+                                return __generator(this, function (_d) {
                                     /** Login Query(useSelectUserInfo작동을 위한 리로드) */
                                     resolve(this._playWalletApiService.fetchUserInfo());
+                                    (_c = (_b = (_a = window.WEMIX_SDK) === null || _a === void 0 ? void 0 : _a.getQR()) === null || _b === void 0 ? void 0 : _b.btnClose) === null || _c === void 0 ? void 0 : _c.click();
                                     return [2 /*return*/];
                                 });
                             }); }, function (fail) {
-                                throw new common_1.ProviderRpcError({
-                                    code: common_1.ProviderRpcErrorCode.ACCOUNT_ACCESS_REJECTED,
+                                // window?.WEMIX_SDK?.closeQR();
+                                // window.WEMIX_SDK?.getQR()?.btnClose?.click();
+                                throw new ProviderRpcError({
+                                    code: ProviderRpcErrorCode.ACCOUNT_ACCESS_REJECTED,
                                     message: 'Play Wallet rejected the request auth.'
                                 });
                             });
@@ -100,9 +103,9 @@ var PlayWalletSdkWeb = /** @class */ (function () {
     };
     PlayWalletSdkWeb.prototype.openSignQrModal = function (unsignedTxParam) {
         var _a, _b;
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, void 0, function () {
             var txtype, chain, to, token_approved, value, method, args, extra_approveds, unsigned, hashes, req;
-            return tslib_1.__generator(this, function (_c) {
+            return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
                         console.info("openSignQrModal ---> transactionObject : ", unsignedTxParam);
@@ -121,10 +124,14 @@ var PlayWalletSdkWeb = /** @class */ (function () {
                         req = _c.sent();
                         return [2 /*return*/, new Promise(function (resolve) {
                                 window.WEMIX_SDK.openQR('sign', req, function (success) {
+                                    var _a, _b;
                                     resolve(hashes);
+                                    (_b = (_a = window.WEMIX_SDK.getQR()) === null || _a === void 0 ? void 0 : _a.btnClose) === null || _b === void 0 ? void 0 : _b.click();
                                 }, function (_fails, error) {
-                                    throw new common_1.ProviderRpcError({
-                                        code: common_1.ProviderRpcErrorCode.ACCOUNT_ACCESS_REJECTED,
+                                    // window?.WEMIX_SDK?.closeQR();
+                                    // window.WEMIX_SDK.getQR()?.btnClose?.click();
+                                    throw new ProviderRpcError({
+                                        code: ProviderRpcErrorCode.ACCOUNT_ACCESS_REJECTED,
                                         message: 'Play Wallet rejected the request sign transaction.'
                                     });
                                 });
@@ -135,15 +142,17 @@ var PlayWalletSdkWeb = /** @class */ (function () {
     };
     PlayWalletSdkWeb.prototype.openModal = function (_a) {
         var type = _a.type, req = _a.req, chainName = _a.chainName, _b = _a.message, message = _b === void 0 ? 'Play Wallet rejected' : _b;
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
-            return tslib_1.__generator(this, function (_c) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_c) {
                 return [2 /*return*/, new Promise(function (resolve) {
                         var _a;
                         (_a = window === null || window === void 0 ? void 0 : window.WEMIX_SDK) === null || _a === void 0 ? void 0 : _a.openQR(type, req, chainName, function (success) {
                             resolve(success);
                         }, function (_fails, error) {
-                            throw new common_1.ProviderRpcError({
-                                code: common_1.ProviderRpcErrorCode.ACCOUNT_ACCESS_REJECTED,
+                            // window?.WEMIX_SDK?.closeQR();
+                            // window?.WEMIX_SDK?.getQR()?.btnClose?.click();
+                            throw new ProviderRpcError({
+                                code: ProviderRpcErrorCode.ACCOUNT_ACCESS_REJECTED,
                                 message: message
                             });
                         });
@@ -153,8 +162,8 @@ var PlayWalletSdkWeb = /** @class */ (function () {
     };
     PlayWalletSdkWeb.prototype.getBalanceAll = function () {
         var _a;
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
-            return tslib_1.__generator(this, function (_b) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_b) {
                 return [2 /*return*/, (_a = this._playWalletApiService.fetchBalanceAll()) !== null && _a !== void 0 ? _a : []];
             });
         });
@@ -166,7 +175,7 @@ var PlayWalletSdkWeb = /** @class */ (function () {
         if (this._provider) {
             return this._provider;
         }
-        var playWalletProvider = new PlayWalletProvider_1.default(this);
+        var playWalletProvider = new PlayWalletProvider(this);
         this._provider = playWalletProvider;
         return playWalletProvider;
     };
@@ -187,4 +196,4 @@ var PlayWalletSdkWeb = /** @class */ (function () {
     };
     return PlayWalletSdkWeb;
 }());
-exports.default = PlayWalletSdkWeb;
+export default PlayWalletSdkWeb;

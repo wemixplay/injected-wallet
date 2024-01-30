@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.BinderMainnetPlugin = void 0;
-var tslib_1 = require("tslib");
-var axiosBinderMainnet_1 = require("../../helper/api/axiosBinderMainnet");
+import { __awaiter, __generator } from "tslib";
+import { requestBinderMainnetApi } from '../../helper/api/axiosBinderMainnet';
 var REQUEST_ACTION_TYPES_BINDER_MAINNET = Object.freeze({
     /** contract 이름으로 contract address 조회 */
     CONTRACT_ADDRESS: 'contract_contractAddress',
@@ -79,10 +76,10 @@ var BinderMainnetPlugin = /** @class */ (function () {
     function BinderMainnetPlugin() {
     }
     BinderMainnetPlugin.prototype.request = function (params) {
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
-            return tslib_1.__generator(this, function (_a) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
                 if (Object.values(REQUEST_ACTION_TYPES_BINDER_MAINNET).includes(params === null || params === void 0 ? void 0 : params.method)) {
-                    return [2 /*return*/, (0, axiosBinderMainnet_1.requestBinderMainnetApi)(params === null || params === void 0 ? void 0 : params.params)];
+                    return [2 /*return*/, requestBinderMainnetApi(params === null || params === void 0 ? void 0 : params.params)];
                 }
                 return [2 /*return*/, null];
             });
@@ -90,4 +87,4 @@ var BinderMainnetPlugin = /** @class */ (function () {
     };
     return BinderMainnetPlugin;
 }());
-exports.BinderMainnetPlugin = BinderMainnetPlugin;
+export { BinderMainnetPlugin };

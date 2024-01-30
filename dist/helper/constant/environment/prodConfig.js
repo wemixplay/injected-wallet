@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.prodConfig = void 0;
 var prodConfig = Object.freeze({
     baseUrl: 'https://api.wemixplay.com',
     a2aRelayUrl: 'https://a2a.wemixnetwork.com',
@@ -20,4 +17,4 @@ var prodConfig = Object.freeze({
         tornado: '4003'
     }
 });
-exports.prodConfig = prodConfig;
+export { prodConfig };

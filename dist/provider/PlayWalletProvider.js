@@ -1,15 +1,13 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var eventemitter3_1 = require("eventemitter3");
-var adapter_1 = require("../adapter");
-var playWalletPlugin_1 = require("../adapter/plugin/playWalletPlugin");
-var requestPlugin_1 = require("../adapter/plugin/requestPlugin");
+import { __extends } from "tslib";
+import { EventEmitter } from 'eventemitter3';
+import Adapter from '../adapter';
+import { PlayWalletPlugin } from '../adapter/plugin/playWalletPlugin';
+import { RequestPlugin, REQUEST_ACTION_TYPES } from '../adapter/plugin/requestPlugin';
 var PlayWalletProvider = /** @class */ (function (_super) {
-    tslib_1.__extends(PlayWalletProvider, _super);
+    __extends(PlayWalletProvider, _super);
     function PlayWalletProvider(instance) {
         var _this = _super.call(this) || this;
-        _this.adapter = new adapter_1.default([new requestPlugin_1.RequestPlugin(instance), new playWalletPlugin_1.PlayWalletPlugin(instance)]);
+        _this.adapter = new Adapter([new RequestPlugin(instance), new PlayWalletPlugin(instance)]);
         return _this;
     }
     PlayWalletProvider.prototype.request = function (args) {
@@ -28,7 +26,7 @@ var PlayWalletProvider = /** @class */ (function (_super) {
      */
     PlayWalletProvider.prototype.getBalance = function (tokenAddress) {
         return this.adapter.request({
-            method: requestPlugin_1.REQUEST_ACTION_TYPES.BALANCE_OF,
+            method: REQUEST_ACTION_TYPES.BALANCE_OF,
             params: { tokenAddress: tokenAddress }
         });
     };
@@ -36,8 +34,8 @@ var PlayWalletProvider = /** @class */ (function (_super) {
      * 연결된 월렛에 선택된 체인 아이디
      */
     PlayWalletProvider.prototype.getChainId = function () {
-        return this.adapter.request({ method: requestPlugin_1.REQUEST_ACTION_TYPES.CHAIN_ID });
+        return this.adapter.request({ method: REQUEST_ACTION_TYPES.CHAIN_ID });
     };
     return PlayWalletProvider;
-}(eventemitter3_1.EventEmitter));
-exports.default = PlayWalletProvider;
+}(EventEmitter));
+export default PlayWalletProvider;

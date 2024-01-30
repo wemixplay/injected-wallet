@@ -1,13 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var playWemixIcon_1 = require("./assets/playWemixIcon");
-var environment_1 = require("./helper/constant/environment");
-var PlayWalletSdkWeb_1 = require("./sdk/PlayWalletSdkWeb");
+import { __awaiter, __generator } from "tslib";
+import icon from './assets/playWemixIcon';
+import { ENV_CONFIG } from './helper/constant/environment';
+import PlayWalletSdkWeb from './sdk/PlayWalletSdkWeb';
 function wemixPlayWallet(_a) {
     var _this = this;
     var env = _a.env, clientId = _a.clientId, interfaceFunction = _a.interfaceFunction;
-    var envConfig = (0, environment_1.ENV_CONFIG)(env || 'prod');
+    var envConfig = ENV_CONFIG(env || 'prod');
     // playWalletSdk 초기화 WEMIX 3.0 mainnet 혹은 testnet 초기화
     var findChain = function (chains) {
         var chain = chains === null || chains === void 0 ? void 0 : chains.find(function (chainInfo) { return (chainInfo === null || chainInfo === void 0 ? void 0 : chainInfo.id) === (envConfig === null || envConfig === void 0 ? void 0 : envConfig.chainId); });
@@ -16,19 +14,19 @@ function wemixPlayWallet(_a) {
     return function () {
         return {
             label: 'Wemix Play Wallet',
-            getIcon: function () { return tslib_1.__awaiter(_this, void 0, void 0, function () { return tslib_1.__generator(this, function (_a) {
-                return [2 /*return*/, playWemixIcon_1.default];
+            getIcon: function () { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+                return [2 /*return*/, icon];
             }); }); },
             getInterface: function (_a) {
                 var chains = _a.chains, appMetadata = _a.appMetadata;
-                return tslib_1.__awaiter(_this, void 0, void 0, function () {
+                return __awaiter(_this, void 0, void 0, function () {
                     var searchedChain, playWalletSdk, provider;
-                    return tslib_1.__generator(this, function (_b) {
+                    return __generator(this, function (_b) {
                         switch (_b.label) {
                             case 0:
                                 searchedChain = chains[0];
                                 searchedChain = findChain(chains);
-                                playWalletSdk = new PlayWalletSdkWeb_1.default({
+                                playWalletSdk = new PlayWalletSdkWeb({
                                     envConfig: envConfig,
                                     clientId: clientId,
                                     chainId: searchedChain === null || searchedChain === void 0 ? void 0 : searchedChain.id,
@@ -51,4 +49,4 @@ function wemixPlayWallet(_a) {
         };
     };
 }
-exports.default = wemixPlayWallet;
+export default wemixPlayWallet;
