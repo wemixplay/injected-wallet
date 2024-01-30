@@ -1,5 +1,4 @@
-import wemixSdk from './wemix.js';
-export default wemixSdk;
+import './wemix.js';
 declare global {
     interface Window {
         Wemix3SDK?: any;

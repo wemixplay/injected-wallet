@@ -3,7 +3,6 @@ import { ProviderRpcError, ProviderRpcErrorCode } from '@web3-onboard/common';
 import PlayWalletProvider from '../provider/PlayWalletProvider';
 import PlayWalletApiService from '../service/PlayWalletApiService';
 import { get, wemixSdkStore } from '../store';
-import wemixSdk from './index';
 var PlayWalletSdkWeb = /** @class */ (function () {
     function PlayWalletSdkWeb(_a) {
         var envConfig = _a.envConfig, clientId = _a.clientId, chainId = _a.chainId, chainRpcUrl = _a.chainRpcUrl, chains = _a.chains, prepared = _a.prepared, signJwt = _a.signJwt, unsignedTx = _a.unsignedTx, sendSignedTx = _a.sendSignedTx;
@@ -48,7 +47,7 @@ var PlayWalletSdkWeb = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, import(wemixSdk)];
+                    case 0: return [4 /*yield*/, import('./wemix.js')];
                     case 1:
                         _a.sent();
                         if (typeof (window === null || window === void 0 ? void 0 : window.wemix) !== 'function') {

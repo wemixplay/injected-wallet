@@ -736,6 +736,15 @@
     ethers "5.5.4"
     joi "17.9.1"
 
+"@wemixplay/injected-wallet@file:../../Github/injected-wallet":
+  version "0.9.1"
+  dependencies:
+    "@web3-onboard/common" "^2.3.3"
+    axios "^1.6.3"
+    ethers "^5.7.2"
+    eventemitter3 "^5.0.1"
+    zustand "^4.4.7"
+
 aes-js@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/aes-js/-/aes-js-3.0.0.tgz#e21df10ad6c2053295bcbb8dab40b09dbea87e4d"

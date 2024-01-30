@@ -1,6 +1,4 @@
-import wemixSdk from './wemix.js';
-
-export default wemixSdk;
+import './wemix.js';
 
 declare global {
   interface Window {
@@ -9,8 +7,4 @@ declare global {
     WEMIX_SDK?: any;
     ethers?: any;
   }
-}
-
-if (typeof window !== 'undefined') {
-  window.Wemix3SDK = wemixSdk;
 }
