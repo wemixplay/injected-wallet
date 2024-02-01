@@ -43,6 +43,13 @@ var PlayWalletSdkWeb = /** @class */ (function () {
         this._wemixSdk = window.WEMIX_SDK;
         console.info('Done is initPlayWallet()');
     };
+    PlayWalletSdkWeb.prototype.closeSdkModal = function () {
+        var _a, _b, _c, _d;
+        // window?.WEMIX_SDK?.closeQR();
+        if ((_a = window.WEMIX_SDK) === null || _a === void 0 ? void 0 : _a.getQR()) {
+            (_d = (_c = (_b = window.WEMIX_SDK) === null || _b === void 0 ? void 0 : _b.getQR()) === null || _c === void 0 ? void 0 : _c.btnClose) === null || _d === void 0 ? void 0 : _d.click();
+        }
+    };
     PlayWalletSdkWeb.prototype.initPlayWallet = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -68,7 +75,7 @@ var PlayWalletSdkWeb = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve) {
-                        var _a, _b;
+                        var _a;
                         if (!window.WEMIX_SDK) {
                             _this.initPlayWallet();
                         }
@@ -76,16 +83,14 @@ var PlayWalletSdkWeb = /** @class */ (function () {
                             (_a = window.WEMIX_SDK) === null || _a === void 0 ? void 0 : _a.openQR('auth', null, // req param
                             null, // chainName
                             function (success) { return __awaiter(_this, void 0, void 0, function () {
-                                var _a, _b, _c;
-                                return __generator(this, function (_d) {
+                                return __generator(this, function (_a) {
                                     /** Login Query(useSelectUserInfo작동을 위한 리로드) */
                                     resolve(this._playWalletApiService.fetchUserInfo());
-                                    (_c = (_b = (_a = window.WEMIX_SDK) === null || _a === void 0 ? void 0 : _a.getQR()) === null || _b === void 0 ? void 0 : _b.btnClose) === null || _c === void 0 ? void 0 : _c.click();
+                                    this.closeSdkModal();
                                     return [2 /*return*/];
                                 });
                             }); }, function (fail) {
-                                // window?.WEMIX_SDK?.closeQR();
-                                // window.WEMIX_SDK?.getQR()?.btnClose?.click();
+                                _this.closeSdkModal();
                                 throw new ProviderRpcError({
                                     code: ProviderRpcErrorCode.ACCOUNT_ACCESS_REJECTED,
                                     message: 'Play Wallet rejected the request auth.'
@@ -93,42 +98,62 @@ var PlayWalletSdkWeb = /** @class */ (function () {
                             });
                         }
                         else {
-                            (_b = window === null || window === void 0 ? void 0 : window.WEMIX_SDK) === null || _b === void 0 ? void 0 : _b.closeQR();
-                            // window.WEMIX_SDK?.getQR()?.btnClose?.click();
+                            _this.closeSdkModal();
                         }
                     })];
             });
         });
     };
-    PlayWalletSdkWeb.prototype.openSignQrModal = function (unsignedTxParam) {
-        var _a, _b;
+    PlayWalletSdkWeb.prototype.makeUnsignedTx = function (unsignedTxParam) {
+        var _a, _b, _c;
         return __awaiter(this, void 0, void 0, function () {
-            var txtype, chain, to, token_approved, value, method, args, extra_approveds, unsigned, hashes, req;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            var txtype, chain, to, token_approved, value, method, args, extra_approveds, unsigned, hashes, _d;
+            var _e;
+            return __generator(this, function (_f) {
+                switch (_f.label) {
                     case 0:
-                        console.info("openSignQrModal ---> transactionObject : ", unsignedTxParam);
                         txtype = unsignedTxParam.txtype, chain = unsignedTxParam.chain, to = unsignedTxParam.to, token_approved = unsignedTxParam.token_approved, value = unsignedTxParam.value, method = unsignedTxParam.method, args = unsignedTxParam.args, extra_approveds = unsignedTxParam.extra_approveds;
                         return [4 /*yield*/, ((_a = window.WEMIX_SDK) === null || _a === void 0 ? void 0 : _a.makeUnsignedTx(txtype, chain, to, token_approved, value, method, args, extra_approveds).catch(function (error) {
                                 var _a = error.response, _b = _a === void 0 ? {} : _a, data = _b.data;
                             }))];
                     case 1:
-                        unsigned = _c.sent();
+                        unsigned = _f.sent();
                         if (!unsigned) {
                             return [2 /*return*/];
                         }
                         hashes = (_b = unsigned === null || unsigned === void 0 ? void 0 : unsigned.data) === null || _b === void 0 ? void 0 : _b.hash;
-                        return [4 /*yield*/, window.WEMIX_SDK.requestSignature(hashes)];
+                        _e = {
+                            hashes: hashes !== null && hashes !== void 0 ? hashes : null
+                        };
+                        if (!hashes) return [3 /*break*/, 3];
+                        return [4 /*yield*/, ((_c = window.WEMIX_SDK) === null || _c === void 0 ? void 0 : _c.requestSignature(hashes))];
                     case 2:
-                        req = _c.sent();
+                        _d = _f.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        _d = null;
+                        _f.label = 4;
+                    case 4: return [2 /*return*/, (_e.req = _d,
+                            _e)];
+                }
+            });
+        });
+    };
+    PlayWalletSdkWeb.prototype.openSignQrModal = function (unsignedTxParam) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, hashes, req;
+            var _this = this;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, this.makeUnsignedTx(unsignedTxParam)];
+                    case 1:
+                        _a = _b.sent(), hashes = _a.hashes, req = _a.req;
                         return [2 /*return*/, new Promise(function (resolve) {
                                 window.WEMIX_SDK.openQR('sign', req, function (success) {
-                                    var _a, _b;
                                     resolve(hashes);
-                                    (_b = (_a = window.WEMIX_SDK.getQR()) === null || _a === void 0 ? void 0 : _a.btnClose) === null || _b === void 0 ? void 0 : _b.click();
+                                    _this.closeSdkModal();
                                 }, function (_fails, error) {
-                                    // window?.WEMIX_SDK?.closeQR();
-                                    // window.WEMIX_SDK.getQR()?.btnClose?.click();
+                                    _this.closeSdkModal();
                                     throw new ProviderRpcError({
                                         code: ProviderRpcErrorCode.ACCOUNT_ACCESS_REJECTED,
                                         message: 'Play Wallet rejected the request sign transaction.'
@@ -139,17 +164,47 @@ var PlayWalletSdkWeb = /** @class */ (function () {
             });
         });
     };
+    PlayWalletSdkWeb.prototype.openOnlySignQrModal = function (_a) {
+        var _b = _a.hashes, hashes = _b === void 0 ? null : _b, _c = _a.req, req = _c === void 0 ? null : _c;
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_d) {
+                if (hashes && req) {
+                    return [2 /*return*/, new Promise(function (resolve) {
+                            window.WEMIX_SDK.openQR('sign', req, function (success) {
+                                resolve(hashes);
+                                _this.closeSdkModal();
+                            }, function (_fails, error) {
+                                _this.closeSdkModal();
+                                throw new ProviderRpcError({
+                                    code: ProviderRpcErrorCode.ACCOUNT_ACCESS_REJECTED,
+                                    message: 'Play Wallet rejected the request sign transaction.'
+                                });
+                            });
+                        })];
+                }
+                else {
+                    throw new ProviderRpcError({
+                        code: ProviderRpcErrorCode.ACCOUNT_ACCESS_REJECTED,
+                        message: 'Play Wallet rejected the request sign transaction.'
+                    });
+                }
+                return [2 /*return*/];
+            });
+        });
+    };
     PlayWalletSdkWeb.prototype.openModal = function (_a) {
         var type = _a.type, req = _a.req, chainName = _a.chainName, _b = _a.message, message = _b === void 0 ? 'Play Wallet rejected' : _b;
         return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
             return __generator(this, function (_c) {
                 return [2 /*return*/, new Promise(function (resolve) {
                         var _a;
                         (_a = window === null || window === void 0 ? void 0 : window.WEMIX_SDK) === null || _a === void 0 ? void 0 : _a.openQR(type, req, chainName, function (success) {
                             resolve(success);
+                            _this.closeSdkModal();
                         }, function (_fails, error) {
-                            // window?.WEMIX_SDK?.closeQR();
-                            // window?.WEMIX_SDK?.getQR()?.btnClose?.click();
+                            _this.closeSdkModal();
                             throw new ProviderRpcError({
                                 code: ProviderRpcErrorCode.ACCOUNT_ACCESS_REJECTED,
                                 message: message

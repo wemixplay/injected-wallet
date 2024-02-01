@@ -5,6 +5,7 @@ var REQUEST_ACTION_TYPES_API = Object.freeze({
     PLAY_WALLET_ACCESS_TOKEN: 'playWallet_accesstoken',
     PLAY_WALLET_MAKE_UNSIGNED_TRANSACTION: 'playWallet_makeUnsignedTx',
     PLAY_WALLET_SEND_SIGNED_TRANSACTION: 'playWallet_sendSignedTx',
+    PLAY_WALLET_MAKE_UNSIGNED_WITH_SEND_TRANSACTION: 'playWallet_makeUnsignedWithSendTx',
     PLAY_WALLET_LOGIN: 'playWallet_login',
     PLAY_WALLET_VERIFY_TOKEN: 'playWallet_verifyToken',
     PLAY_WALLET_BALANCE_ALL: 'playWallet_balanceAll'
@@ -26,10 +27,13 @@ var PlayWalletPlugin = /** @class */ (function () {
                         return [2 /*return*/, this._walletApiService.a2aServerlessAccessToken(params)];
                     }
                     case REQUEST_ACTION_TYPES_API.PLAY_WALLET_MAKE_UNSIGNED_TRANSACTION: {
-                        return [2 /*return*/, this._sdkInstance.openSignQrModal(params)];
+                        return [2 /*return*/, this._sdkInstance.makeUnsignedTx(params)];
                     }
                     case REQUEST_ACTION_TYPES_API.PLAY_WALLET_SEND_SIGNED_TRANSACTION: {
-                        return [2 /*return*/, this._walletApiService.sendSignedTx(params === null || params === void 0 ? void 0 : params.hash, params === null || params === void 0 ? void 0 : params.signature, params === null || params === void 0 ? void 0 : params.type)];
+                        return [2 /*return*/, this._sdkInstance.openOnlySignQrModal(params)];
+                    }
+                    case REQUEST_ACTION_TYPES_API.PLAY_WALLET_MAKE_UNSIGNED_WITH_SEND_TRANSACTION: {
+                        return [2 /*return*/, this._sdkInstance.openSignQrModal(params)];
                     }
                     case REQUEST_ACTION_TYPES_API.PLAY_WALLET_LOGIN: {
                         return [2 /*return*/, this._walletApiService.fetchUserInfo()];
@@ -50,4 +54,4 @@ var PlayWalletPlugin = /** @class */ (function () {
     };
     return PlayWalletPlugin;
 }());
-export { PlayWalletPlugin };
+export { PlayWalletPlugin, REQUEST_ACTION_TYPES_API };

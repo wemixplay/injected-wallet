@@ -79,6 +79,13 @@ class PlayWalletSdkWeb {
     console.info('Done is initPlayWallet()');
   }
 
+  private closeSdkModal() {
+    // window?.WEMIX_SDK?.closeQR();
+    if (window.WEMIX_SDK?.getQR()) {
+      window.WEMIX_SDK?.getQR()?.btnClose?.click();
+    }
+  }
+
   public async initPlayWallet() {
     await import('./wemix.js');
 
@@ -105,11 +112,10 @@ class PlayWalletSdkWeb {
           async (success: Record<string, any>) => {
             /** Login Query(useSelectUserInfo작동을 위한 리로드) */
             resolve(this._playWalletApiService.fetchUserInfo());
-            window.WEMIX_SDK?.getQR()?.btnClose?.click();
+            this.closeSdkModal();
           },
           (fail: any) => {
-            // window?.WEMIX_SDK?.closeQR();
-            // window.WEMIX_SDK?.getQR()?.btnClose?.click();
+            this.closeSdkModal();
             throw new ProviderRpcError({
               code: ProviderRpcErrorCode.ACCOUNT_ACCESS_REJECTED,
               message: 'Play Wallet rejected the request auth.'
@@ -117,14 +123,12 @@ class PlayWalletSdkWeb {
           }
         );
       } else {
-        window?.WEMIX_SDK?.closeQR();
-        // window.WEMIX_SDK?.getQR()?.btnClose?.click();
+        this.closeSdkModal();
       }
     });
   }
 
-  public async openSignQrModal(unsignedTxParam: UnsignedTxType) {
-    console.info(`openSignQrModal ---> transactionObject : `, unsignedTxParam);
+  public async makeUnsignedTx(unsignedTxParam: UnsignedTxType) {
     const { txtype, chain, to, token_approved, value, method, args, extra_approveds } =
       unsignedTxParam;
     const unsigned = await window.WEMIX_SDK?.makeUnsignedTx(
@@ -145,7 +149,15 @@ class PlayWalletSdkWeb {
     }
 
     const hashes = unsigned?.data?.hash;
-    const req = await window.WEMIX_SDK.requestSignature(hashes);
+
+    return {
+      hashes: hashes ?? null,
+      req: hashes ? await window.WEMIX_SDK?.requestSignature(hashes) : null
+    };
+  }
+
+  public async openSignQrModal(unsignedTxParam: UnsignedTxType) {
+    const { hashes, req } = await this.makeUnsignedTx(unsignedTxParam);
 
     return new Promise((resolve) => {
       window.WEMIX_SDK.openQR(
@@ -153,11 +165,10 @@ class PlayWalletSdkWeb {
         req,
         (success: Record<string, unknown>[]) => {
           resolve(hashes);
-          window.WEMIX_SDK.getQR()?.btnClose?.click();
+          this.closeSdkModal();
         },
         (_fails: [], error: any) => {
-          // window?.WEMIX_SDK?.closeQR();
-          // window.WEMIX_SDK.getQR()?.btnClose?.click();
+          this.closeSdkModal();
           throw new ProviderRpcError({
             code: ProviderRpcErrorCode.ACCOUNT_ACCESS_REJECTED,
             message: 'Play Wallet rejected the request sign transaction.'
@@ -165,6 +176,33 @@ class PlayWalletSdkWeb {
         }
       );
     });
+  }
+
+  public async openOnlySignQrModal({ hashes = null, req = null }: { hashes: any; req: any }) {
+    if (hashes && req) {
+      return new Promise((resolve) => {
+        window.WEMIX_SDK.openQR(
+          'sign',
+          req,
+          (success: Record<string, unknown>[]) => {
+            resolve(hashes);
+            this.closeSdkModal();
+          },
+          (_fails: [], error: any) => {
+            this.closeSdkModal();
+            throw new ProviderRpcError({
+              code: ProviderRpcErrorCode.ACCOUNT_ACCESS_REJECTED,
+              message: 'Play Wallet rejected the request sign transaction.'
+            });
+          }
+        );
+      });
+    } else {
+      throw new ProviderRpcError({
+        code: ProviderRpcErrorCode.ACCOUNT_ACCESS_REJECTED,
+        message: 'Play Wallet rejected the request sign transaction.'
+      });
+    }
   }
 
   public async openModal({ type, req, chainName, message = 'Play Wallet rejected' }) {
@@ -175,10 +213,10 @@ class PlayWalletSdkWeb {
         chainName,
         (success: Record<string, unknown>[]) => {
           resolve(success);
+          this.closeSdkModal();
         },
         (_fails: [], error: any) => {
-          // window?.WEMIX_SDK?.closeQR();
-          // window?.WEMIX_SDK?.getQR()?.btnClose?.click();
+          this.closeSdkModal();
           throw new ProviderRpcError({
             code: ProviderRpcErrorCode.ACCOUNT_ACCESS_REJECTED,
             message

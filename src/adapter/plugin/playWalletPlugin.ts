@@ -6,6 +6,7 @@ const REQUEST_ACTION_TYPES_API = Object.freeze({
   PLAY_WALLET_ACCESS_TOKEN: 'playWallet_accesstoken',
   PLAY_WALLET_MAKE_UNSIGNED_TRANSACTION: 'playWallet_makeUnsignedTx',
   PLAY_WALLET_SEND_SIGNED_TRANSACTION: 'playWallet_sendSignedTx',
+  PLAY_WALLET_MAKE_UNSIGNED_WITH_SEND_TRANSACTION: 'playWallet_makeUnsignedWithSendTx',
   PLAY_WALLET_LOGIN: 'playWallet_login',
   PLAY_WALLET_VERIFY_TOKEN: 'playWallet_verifyToken',
   PLAY_WALLET_BALANCE_ALL: 'playWallet_balanceAll'
@@ -29,10 +30,13 @@ class PlayWalletPlugin {
         return this._walletApiService.a2aServerlessAccessToken(params);
       }
       case REQUEST_ACTION_TYPES_API.PLAY_WALLET_MAKE_UNSIGNED_TRANSACTION: {
-        return this._sdkInstance.openSignQrModal(params);
+        return this._sdkInstance.makeUnsignedTx(params);
       }
       case REQUEST_ACTION_TYPES_API.PLAY_WALLET_SEND_SIGNED_TRANSACTION: {
-        return this._walletApiService.sendSignedTx(params?.hash, params?.signature, params?.type);
+        return this._sdkInstance.openOnlySignQrModal(params);
+      }
+      case REQUEST_ACTION_TYPES_API.PLAY_WALLET_MAKE_UNSIGNED_WITH_SEND_TRANSACTION: {
+        return this._sdkInstance.openSignQrModal(params);
       }
       case REQUEST_ACTION_TYPES_API.PLAY_WALLET_LOGIN: {
         return this._walletApiService.fetchUserInfo();
@@ -50,4 +54,4 @@ class PlayWalletPlugin {
   }
 }
 
-export { PlayWalletPlugin };
+export { PlayWalletPlugin, REQUEST_ACTION_TYPES_API };

@@ -14,9 +14,18 @@ declare class PlayWalletSdkWeb {
     private _sendSignedTx;
     constructor({ envConfig, clientId, chainId, chainRpcUrl, chains, prepared, signJwt, unsignedTx, sendSignedTx }: PlayWalletSdkOptionsType);
     protected initWemixSdk(): void;
+    private closeSdkModal;
     initPlayWallet(): Promise<boolean>;
     openAuthQrModal(isOpen: boolean): Promise<unknown>;
+    makeUnsignedTx(unsignedTxParam: UnsignedTxType): Promise<{
+        hashes: any;
+        req: any;
+    }>;
     openSignQrModal(unsignedTxParam: UnsignedTxType): Promise<unknown>;
+    openOnlySignQrModal({ hashes, req }: {
+        hashes: any;
+        req: any;
+    }): Promise<unknown>;
     openModal({ type, req, chainName, message }: {
         type: any;
         req: any;
