@@ -3,12 +3,11 @@
     "browser": true,
     "es2021": true
   },
-  "plugins": ["@typescript-eslint", "prettier", "react-hooks"],
+  "plugins": ["@typescript-eslint", "prettier"],
   "extends": [
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
-    "next/core-web-vitals"
+    "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -23,19 +22,12 @@
       "version": "detect"
     }
   },
-  "ignorePatterns": ["node_modules/", ".next/*", "*.js"],
+  "ignorePatterns": ["node_modules/", "*.js"],
   "rules": {
-    "react/react-in-jsx-scope": 0,
-    "react/prefer-stateless-function": 0,
-    "react/jsx-filename-extension": 0,
-    "react/jsx-one-expression-per-line": 0,
     "no-nested-ternary": 0,
     "no-unused-vars": "off",
     "no-undef": "off",
     "/no-useless-escape": "off",
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "error",
-    "react/no-children-prop": "off",
     "prettier/prettier": [
       "error",
       {
@@ -48,6 +40,7 @@
       2,
       { "SwitchCase": 1, "ignoredNodes": ["ConditionalExpression"] }
     ],
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-empty-interface": "off",
     "no-empty-interface": "off"

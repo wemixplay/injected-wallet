@@ -26,6 +26,4 @@ type JwtDataType = {
   token_type: string;
 };
 
-type UnsignedTxDataType = {};
-
 export type { ResponseType, PreparedDataType, JwtDataType, ResponseUnsignedType };
