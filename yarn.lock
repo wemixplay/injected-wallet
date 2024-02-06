@@ -919,16 +919,6 @@
     ethers "5.5.4"
     joi "17.9.1"
 
-"@wemixplay/injected-wallet@file:../../Github/injected-wallet":
-  version "0.9.2"
-  dependencies:
-    "@web3-onboard/common" "^2.3.3"
-    "@wemixplay/injected-wallet" "file:../../Library/Caches/Yarn/v6/npm-@wemixplay-injected-wallet-0.9.2-228ab17a-96b7-4b7c-9c3d-348566aec34e-1707111302262/node_modules/Github/injected-wallet"
-    axios "^1.6.3"
-    ethers "^5.7.2"
-    eventemitter3 "^5.0.1"
-    zustand "^4.4.7"
-
 acorn-jsx@^5.3.2:
   version "5.3.2"
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-5.3.2.tgz#7ed5bb55908b3b2f1bc55c6af1653bada7f07937"
@@ -1564,10 +1554,10 @@ human-signals@^5.0.0:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-5.0.0.tgz#42665a284f9ae0dade3ba41ebc37eb4b852f3a28"
   integrity sha512-AXcZb6vzzrFAUE61HnN4mpLqd/cSIwNQjtNWR0euPm6y0iqx3G4gOXaIDdtdDwZmhwe82LA6+zinmW4UBWVePQ==
 
-husky@^9.0.10:
-  version "9.0.10"
-  resolved "https://registry.yarnpkg.com/husky/-/husky-9.0.10.tgz#ddca8908deb5f244e9286865ebc80b54387672c2"
-  integrity sha512-TQGNknoiy6bURzIO77pPRu+XHi6zI7T93rX+QnJsoYFf3xdjKOur+IlfqzJGMHIK/wXrLg+GsvMs8Op7vI2jVA==
+husky@^8.0.0:
+  version "8.0.3"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-8.0.3.tgz#4936d7212e46d1dea28fef29bb3a108872cd9184"
+  integrity sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==
 
 ignore@^5.2.0, ignore@^5.2.4:
   version "5.3.1"

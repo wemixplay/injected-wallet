@@ -56,7 +56,6 @@
   },
   "dependencies": {
     "@web3-onboard/common": "^2.3.3",
-    "@wemixplay/injected-wallet": "file:../../Github/injected-wallet",
     "axios": "^1.6.3",
     "ethers": "^5.7.2",
     "eventemitter3": "^5.0.1",
