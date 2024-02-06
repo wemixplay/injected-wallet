@@ -2,8 +2,8 @@ import axios from 'axios';
 import { StoreInfoType } from '~types/PlayWalletStoreType';
 import { wemixSdkStore } from '../../store';
 
-let binderMainnetUrl: string = null;
-let binderMainnetJWT: string = null;
+const binderMainnetUrl: string = null;
+const binderMainnetJWT: string = null;
 
 wemixSdkStore.subscribe((state: StoreInfoType) => {
   // binderMainnetUrl = state.binderMainnetUrl;
